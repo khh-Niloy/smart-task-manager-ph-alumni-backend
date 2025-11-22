@@ -12,6 +12,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000",
+      "https://smart-task-manager-blush.vercel.app",
     ],
     credentials: true,
   })
