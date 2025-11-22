@@ -2,7 +2,6 @@ import { app } from "./app";
 import { envVars } from "./app/config/env";
 import { connectMongoose } from "./app/lib/connectMongoose";
 import { Server } from "http";
-// import { seedSuperAdmin } from "./app/utils/seedSuperAdmin";
 
 let server: Server;
 
@@ -19,7 +18,6 @@ const startServer = async () => {
 
 (async () => {
   await startServer();
-  // await seedSuperAdmin();
 })();
 
 const graceFullyShutDown = () => {

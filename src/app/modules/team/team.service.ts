@@ -1,7 +1,6 @@
 import { Team, TeamMember } from "./team.model";
 import { ITeam, ITeamMember } from "./team.interface";
 
-// Team Services
 const getAllTeamsService = async () => {
   const teams = await Team.find().populate("members").populate("createdBy", "name email");
   return teams;
@@ -32,27 +31,21 @@ const deleteTeamService = async (teamId: string) => {
     throw new Error("Team not found");
   }
 
-  // Delete all team members associated with this team
   await TeamMember.deleteMany({ team: teamId });
 
-  // Delete the team
   await Team.findByIdAndDelete(teamId);
 
   return { message: "Team and associated members deleted successfully" };
 };
 
-// Team Member Services
 const createTeamMemberService = async (payload: Partial<ITeamMember>) => {
-  // Verify that the team exists
   const team = await Team.findById(payload.team);
   if (!team) {
     throw new Error("Team not found");
   }
 
-  // Create the team member
   const newTeamMember = await TeamMember.create(payload);
 
-  // Add team member to team's members array
   await Team.findByIdAndUpdate(
     payload.team,
     { $push: { members: newTeamMember._id } },
@@ -91,14 +84,12 @@ const deleteTeamMemberService = async (memberId: string) => {
 
   const teamId = teamMember.team;
 
-  // Remove team member from team's members array
   await Team.findByIdAndUpdate(
     teamId,
     { $pull: { members: memberId } },
     { new: true }
   );
 
-  // Delete the team member
   await TeamMember.findByIdAndDelete(memberId);
 
   return { message: "Team member deleted successfully" };

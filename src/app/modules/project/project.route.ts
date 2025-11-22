@@ -11,7 +11,6 @@ import { roleBasedProtection } from "../../middleware/roleBasedProtection";
 
 export const projectRoutes = Router();
 
-// Project Routes
 projectRoutes.get(
   "/",
   roleBasedProtection(),
@@ -25,7 +24,6 @@ projectRoutes.post(
   projectController.createProject
 );
 
-// Specific routes before generic :projectId routes
 projectRoutes.get(
   "/:projectId/team-members",
   roleBasedProtection(),
@@ -44,8 +42,6 @@ projectRoutes.delete(
   roleBasedProtection(),
   projectController.deleteProject
 );
-
-// Task Routes
 
 projectRoutes.post(
   "/tasks",

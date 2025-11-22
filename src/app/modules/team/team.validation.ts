@@ -1,6 +1,5 @@
 import { z } from "zod";
 
-// Team Validation Schema
 export const teamZodSchema = z.object({
   name: z
     .string({ message: "Team name must be a string" })
@@ -14,7 +13,6 @@ export const teamZodSchema = z.object({
     .optional(),
 });
 
-// Team Update Schema
 export const teamUpdateZodSchema = z.object({
   name: z
     .string({ message: "Team name must be a string" })
@@ -29,7 +27,6 @@ export const teamUpdateZodSchema = z.object({
     .optional(),
 });
 
-// Team Member Validation Schema
 export const teamMemberZodSchema = z.object({
   name: z
     .string({ message: "Team member name must be a string" })
@@ -51,7 +48,6 @@ export const teamMemberZodSchema = z.object({
     .regex(/^[0-9a-fA-F]{24}$/, { message: "Invalid team ID format" }),
 });
 
-// Team Member Update Schema
 export const teamMemberUpdateZodSchema = z.object({
   name: z
     .string({ message: "Team member name must be a string" })

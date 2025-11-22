@@ -111,7 +111,6 @@ const createTask = async (req: Request, res: Response) => {
       data: result.task,
     };
 
-    // Include capacity warning if present
     if (result.capacityWarning) {
       response.warning = result.capacityWarning;
     }
@@ -120,7 +119,6 @@ const createTask = async (req: Request, res: Response) => {
   } catch (error) {
     const errorMessage = (error as Error).message;
 
-    // Handle capacity warning
     if (errorMessage.startsWith("CAPACITY_WARNING:")) {
       const warningData = JSON.parse(
         errorMessage.replace("CAPACITY_WARNING:", "")

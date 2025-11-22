@@ -1,7 +1,6 @@
 import { z } from "zod";
 import { ActivityType } from "./activity.interface";
 
-// Activity Log Filter Schema
 export const activityLogFilterZodSchema = z.object({
   project: z
     .string({ message: "Project ID must be a string" })

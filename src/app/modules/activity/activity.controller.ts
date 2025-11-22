@@ -4,7 +4,6 @@ import { activityLogFilterZodSchema } from "./activity.validation";
 
 const getActivityLogs = async (req: Request, res: Response) => {
   try {
-    // Validate query parameters
     const validatedQuery = activityLogFilterZodSchema.parse({
       project: req.query.project,
       task: req.query.task,

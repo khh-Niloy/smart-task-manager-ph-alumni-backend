@@ -1,12 +1,9 @@
 import { z } from "zod";
 
-// Task Priority Enum
 export const taskPriorityEnum = z.enum(["Low", "Medium", "High"]);
 
-// Task Status Enum
 export const taskStatusEnum = z.enum(["Pending", "In Progress", "Done"]);
 
-// Project Validation Schema
 export const projectZodSchema = z.object({
   name: z
     .string({ message: "Project name must be a string" })
@@ -24,7 +21,6 @@ export const projectZodSchema = z.object({
     .optional(),
 });
 
-// Task Validation Schema
 export const taskZodSchema = z.object({
   title: z
     .string({ message: "Task title must be a string" })
@@ -51,7 +47,6 @@ export const taskZodSchema = z.object({
   forceAssign: z.boolean().optional(),
 });
 
-// Task Update Schema (all fields optional except project)
 export const taskUpdateZodSchema = z.object({
   title: z
     .string({ message: "Task title must be a string" })
@@ -74,7 +69,6 @@ export const taskUpdateZodSchema = z.object({
   status: taskStatusEnum.optional(),
 });
 
-// Project Update Schema
 export const projectUpdateZodSchema = z.object({
   name: z
     .string({ message: "Project name must be a string" })
@@ -93,7 +87,6 @@ export const projectUpdateZodSchema = z.object({
     .optional(),
 });
 
-// Query Filter Schema for Tasks
 export const taskFilterZodSchema = z.object({
   project: z
     .string({ message: "Project ID must be a string" })

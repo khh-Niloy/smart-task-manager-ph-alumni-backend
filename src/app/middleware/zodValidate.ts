@@ -6,9 +6,7 @@ export const zodValidation =
   (zodSchema: ZodObject<any>) =>
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      // Handle FormData parsing for product creation
       if (req.body && typeof req.body === 'object') {
-        // No need to parse JSON here since schemas handle it
       }
       
       req.body = await zodSchema.parseAsync(req.body)

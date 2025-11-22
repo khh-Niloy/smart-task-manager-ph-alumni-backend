@@ -45,7 +45,6 @@ const activityLogSchema = new Schema<IActivityLog>(
   }
 );
 
-// Index for better query performance
 activityLogSchema.index({ project: 1, createdAt: -1 });
 activityLogSchema.index({ task: 1, createdAt: -1 });
 activityLogSchema.index({ type: 1, createdAt: -1 });

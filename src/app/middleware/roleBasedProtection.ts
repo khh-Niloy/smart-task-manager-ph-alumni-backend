@@ -17,7 +17,6 @@ export const roleBasedProtection =
       envVars.JWT_ACCESS_SECRET
     ) as JwtPayload;
 
-    // Prefer userId to avoid relying on optional identifiers like email/phone
     const user = await User.findById(userInfoJWTAccessToken.userId);
 
     if (!user) {

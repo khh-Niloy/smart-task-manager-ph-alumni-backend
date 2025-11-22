@@ -25,7 +25,7 @@ export interface IActivityLog {
   team?: Types.ObjectId | string;
   teamMember?: Types.ObjectId | string;
   performedBy?: Types.ObjectId | string;
-  metadata?: Record<string, any>; // For storing additional info like oldAssignee, newAssignee, etc.
+  metadata?: Record<string, any>;
   createdAt?: Date;
   updatedAt?: Date;
 }

@@ -5,16 +5,12 @@ import { ActivityType } from "../activity/activity.interface";
 import { Types } from "mongoose";
 
 const getDashboardDataService = async (userId?: string) => {
-  // Get total projects count
   const totalProjects = await Project.countDocuments();
 
-  // Get total tasks count (excluding Done tasks)
   const totalTasks = await Task.countDocuments({ status: { $ne: "Done" } });
 
-  // Get all teams
   const teams = await Team.find().populate("members").populate("createdBy", "name");
 
-  // Get team summary with member load
   const teamSummary = await Promise.all(
     teams.map(async (team) => {
       const teamMembers = await TeamMember.find({ team: team._id });
@@ -22,7 +18,6 @@ const getDashboardDataService = async (userId?: string) => {
       const membersWithLoad = await Promise.all(
         teamMembers.map(async (member) => {
           const memberId = member._id.toString();
-          // Count all tasks assigned to this member (excluding "Done" status)
           const currentTasks = await Task.countDocuments({
             assignedMember: memberId,
             status: { $ne: "Done" },
@@ -43,7 +38,6 @@ const getDashboardDataService = async (userId?: string) => {
         })
       );
 
-      // Get projects linked to this team
       const teamProjects = await Project.find({ team: team._id }).select("_id name");
 
       return {
@@ -58,7 +52,6 @@ const getDashboardDataService = async (userId?: string) => {
     })
   );
 
-  // Get recent reassignments (last 5)
   const recentReassignments = await ActivityLog.find({
     type: ActivityType.TASK_AUTO_REASSIGNED,
   })
@@ -69,7 +62,6 @@ const getDashboardDataService = async (userId?: string) => {
     .limit(5)
     .select("description metadata task project teamMember createdAt");
 
-  // Format recent reassignments
   const formattedReassignments = recentReassignments.map((log) => ({
     _id: log._id,
     taskTitle: (log.task as any)?.title || "Unknown Task",
